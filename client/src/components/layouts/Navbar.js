@@ -8,12 +8,10 @@ const Navbar = () => {
           <i className="fas fa-glass-cheers" />
           Party RSVP
         </h1>
-        <p>
-          Made with <span>❤</span> by Mu Idrees
-        </p>
+        <p>Made by Huzaifa Ahmad</p>
       </div>
       <ul>
-        <li>Hello, Idrees</li>
+        <li>Hello, Huzaifa</li>
         <span className="sm-hide">|</span>
         <li>
           <a href="#!">
