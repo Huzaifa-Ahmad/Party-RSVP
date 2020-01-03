@@ -1,12 +1,22 @@
 import React, { useReducer } from "react";
 import GuestContext from "./guestContext";
 import guestReducer from "./guestReducer";
-import { TOGGLE_FILTER, SEARCH_GUEST, CLEAR_SEARCH } from "../types";
+import {
+  TOGGLE_FILTER,
+  SEARCH_GUEST,
+  CLEAR_SEARCH,
+  ADD_GUEST,
+  REMOVE_GUEST,
+  UPDATE_GUEST,
+  EDIT_GUEST,
+  CLEAR_EDIT
+} from "../types";
 
 const GuestState = props => {
   const initialState = {
     filterGuest: false,
     search: null,
+    enableEdit: null,
     guests: [
       {
         id: 1,
@@ -53,6 +63,43 @@ const GuestState = props => {
     });
   };
 
+  const addGuest = guest => {
+    guest.isConfirmed = false;
+    guest.id = Date.now;
+
+    dispatch({
+      type: ADD_GUEST,
+      payload: guest
+    });
+  };
+
+  const removeGuest = id => {
+    dispatch({
+      type: REMOVE_GUEST,
+      payload: id
+    });
+  };
+
+  const updateGuest = guest => {
+    dispatch({
+      type: UPDATE_GUEST,
+      payload: guest
+    });
+  };
+
+  const editGuest = guest => {
+    dispatch({
+      type: EDIT_GUEST,
+      payload: guest
+    });
+  };
+
+  const clearEdit = guest => {
+    dispatch({
+      type: CLEAR_EDIT
+    });
+  };
+
   return (
     <GuestContext.Provider
       value={{
@@ -61,7 +108,13 @@ const GuestState = props => {
         search: state.search,
         toggleFilter,
         searchGuest,
-        clearSearch
+        clearSearch,
+        addGuest,
+        removeGuest,
+        updateGuest,
+        editGuest,
+        enableEdit: state.enableEdit,
+        clearEdit
       }}
     >
       {props.children}
