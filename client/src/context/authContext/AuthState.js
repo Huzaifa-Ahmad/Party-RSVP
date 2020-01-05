@@ -2,21 +2,49 @@ import React, { useReducer } from "react";
 import axios from "axios";
 import AuthContext from "./authContext";
 import authReducer from "./authReducer";
+import setToken from "../../utils/setToken";
 import {
   SUCCESS_LOGIN,
   SUCCESS_REGISTER,
   FAIL_LOGIN,
   FAIL_REGISTER,
   SET_ERROR,
-  CLEAR_ERROR
+  CLEAR_ERROR,
+  LOG_OUT,
+  SET_USER,
+  AUTH_ERROR
 } from "../types";
 
 export const AuthState = props => {
   const initialState = {
+    token: localStorage.getItem("token"),
     userAuth: null,
-    errors: null
+    errors: null,
+    user: null
   };
   const [state, dispatch] = useReducer(authReducer, initialState);
+
+  //Get User
+
+  const getUser = async () => {
+    if (localStorage.token) {
+      setToken(localStorage.token);
+    }
+
+    // const res = await axios.get("/auth");
+    try {
+      const res = await axios.get("/auth");
+      dispatch({
+        type: SET_USER,
+        payload: res.data
+      });
+    } catch (error) {
+      dispatch({
+        type: AUTH_ERROR,
+        payload: error
+      });
+    }
+  };
 
   //Register User
 
@@ -77,15 +105,25 @@ export const AuthState = props => {
     });
   };
 
+  // Logout User
+  const logout = () => {
+    dispatch({
+      type: LOG_OUT
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
+        user: state.user,
         userAuth: state.userAuth,
         errors: state.errors,
+        getUser: getUser,
         registerUser,
         loginUser,
         setError,
-        clearError
+        clearError,
+        logout
       }}
     >
       {props.children}

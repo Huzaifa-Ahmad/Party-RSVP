@@ -5,8 +5,14 @@ import Navbar from "./components/layouts/Navbar";
 import Home from "./components/pages/Home";
 import GuestState from "./context/guestContext/GuestState";
 import AuthState from "./context/authContext/AuthState";
-import Register from "../src/components/pages/Register";
-import Login from "../src/components/pages/Login";
+import Register from "./components/pages/Register";
+import Login from "./components/pages/Login";
+import PrivateRoute from "./components/pages/routes/PrivateRoute";
+import setToken from "./utils/setToken";
+
+if (localStorage.token) {
+  setToken(localStorage.token);
+}
 
 function App() {
   return (
@@ -16,7 +22,7 @@ function App() {
           <div>
             <Navbar />
             <Switch>
-              <Route exact path="/" component={Home} />
+              <PrivateRoute exact path="/" component={Home} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
             </Switch>

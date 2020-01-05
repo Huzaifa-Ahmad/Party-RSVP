@@ -1,9 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../context/authContext/authContext";
+import GuestContext from "../../context/guestContext/guestContext";
 import { Link } from "react-router-dom";
 
 export const Login = props => {
   const { loginUser, userAuth, errors, clearError } = useContext(AuthContext);
+  const { clearGuests } = useContext(GuestContext);
 
   useEffect(() => {
     if (userAuth) {
@@ -29,6 +31,7 @@ export const Login = props => {
     e.preventDefault();
     loginUser({ email, password });
     clearError();
+    clearGuests();
   };
 
   return (
