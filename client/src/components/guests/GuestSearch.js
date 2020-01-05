@@ -6,7 +6,7 @@ const GuestSearch = () => {
   const searchValue = useRef("");
 
   const handleChange = event => {
-    if (searchValue.current.value != "") {
+    if (searchValue.current.value !== "") {
       searchGuest(event.target.value);
     } else {
       clearSearch();

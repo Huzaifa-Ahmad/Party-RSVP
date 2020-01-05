@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import GuestContext from "../../context/guestContext/guestContext";
 
 const GuestForm = () => {
-  const { guests, addGuest, enableEdit, updateGuest, clearEdit } = useContext(
+  const { addGuest, enableEdit, updateGuest, clearEdit } = useContext(
     GuestContext
   );
 

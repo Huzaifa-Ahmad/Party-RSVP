@@ -62,11 +62,6 @@ export default (state, { type, payload }) => {
         enableEdit: null
       };
 
-    case CLEAR_EDIT:
-      return {
-        ...state
-      };
-
     default:
       return state;
   }
